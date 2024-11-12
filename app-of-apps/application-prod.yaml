@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-jenkins-1211-prod
+  namespace: rhtap
+  finalizers: ["resources-finalizer.argocd.argoproj.io"] 
+spec:
+  project: default
+  source:
+    path: ./components/node-jenkins-1211/overlays/prod
+    repoURL: https://github.com/rhtap-test-organization-jk/node-jenkins-1211-gitops.git
+    targetRevision: main
+  destination:
+    namespace: rhtap-app-prod
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels: 
+        argocd.argoproj.io/managed-by: rhtap
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true

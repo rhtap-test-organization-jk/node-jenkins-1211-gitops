@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: node-jenkins-1211-gitops
+  description: This is GitOps manifest for node-jenkins-1211   
+  links:
+    - url: https://www.redhat.com/en/solutions/trusted-software-supply-chain
+      title: Trusted Secure Supply Chain 
+      icon: dashboard
+      type: admin-dashboard
+  annotations:    
+    argocd/app-name: node-jenkins-1211
+    backstage.io/kubernetes-id: node-jenkins-1211 
+    backstage.io/techdocs-ref: dir:. 
+    jenkins.io/job-full-name: node-jenkins-1211-gitops   
+spec:
+  type: gitops
+  owner: user:guest 
+  lifecycle: experimental
+  dependsOn:
+    - component:node-jenkins-1211
